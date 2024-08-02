@@ -9,11 +9,12 @@ public class Fruit : MonoBehaviour
 
     private Rigidbody fruitRigidbody;
     private Collider fruitCollider;
-
+    private ParticleSystem juiceParticleSystem;
     private void Awake()
     {
         fruitRigidbody = GetComponent<Rigidbody>();
         fruitCollider = GetComponent<Collider>();
+        juiceParticleSystem = GetComponentInChildren<ParticleSystem>();
     }
 
     void Slice(Vector3 direction,Vector3 position,float force)
@@ -22,6 +23,7 @@ public class Fruit : MonoBehaviour
         slice.SetActive(true);
 
         fruitCollider.enabled = false;
+        juiceParticleSystem.Play();
 
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
         slice.transform.rotation = Quaternion.Euler(0f,0f,angle);
